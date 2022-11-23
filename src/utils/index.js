@@ -1,9 +1,4 @@
 const colors = require('colors');
-const { resolve } = require('path');
-const readline = require('readline').createInterface({
-  input: process.stdin,
-  output: process.stdout,
-});
 
 const showMenu = () =>
   new Promise(resolve => {
@@ -21,16 +16,27 @@ const showMenu = () =>
     console.log(`${colors.green(6)}. Delete a task`);
     console.log(`${colors.green(7)}. Exit \n`);
 
+    const readline = require('readline').createInterface({
+      input: process.stdin,
+      output: process.stdout,
+    });
+
     readline.question(`Enter an option ${'1-7'.blue}: `, opt => {
+      readline.close();
       resolve(opt);
     });
   });
 
 const doPause = () =>
   new Promise(resolve => {
-    readline.question(`\nPress ${'ENTER'.green} to continue\n`, opt => {
-      resolve();
+    const readline = require('readline').createInterface({
+      input: process.stdin,
+      output: process.stdout,
+    });
+
+    readline.question(`\nPress ${'ENTER'.green} to continue\n`, () => {
       readline.close();
+      resolve();
     });
   });
 
