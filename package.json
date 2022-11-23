@@ -4,8 +4,12 @@
   "description": "A simple project based in NodeJS for handling our tasks",
   "main": "index.js",
   "scripts": {
+    "nodemon": "npx nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Christian Riano",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "colors": "^1.4.0"
+  }
 }
