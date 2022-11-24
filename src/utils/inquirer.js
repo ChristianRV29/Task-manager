@@ -5,7 +5,7 @@ const optsMenu = [
   {
     type: 'list',
     name: 'option',
-    message: 'What do you want to do?',
+    message: 'What do you want to do?\n',
     choices: [
       {
         value: 1,
@@ -39,6 +39,13 @@ const optsMenu = [
   },
 ];
 
+const pauseMessage = {
+  type: 'input',
+  name: 'enter',
+  message: `\nPress ${'ENTER'.green} to continue\n`,
+  default: 'ENTER',
+};
+
 const showInquirerMenu = async () => {
   try {
     console.clear();
@@ -51,7 +58,26 @@ const showInquirerMenu = async () => {
     const opt = await prompt(optsMenu);
 
     return opt;
-  } catch (err) {}
+  } catch (err) {
+    console.log(
+      '🐞 ~ It just happened an error when trying to show the menu: ',
+      err?.message || err
+    );
+  }
 };
 
-module.exports = { showInquirerMenu };
+const doPause = async () => {
+  try {
+    const prompt = inquirer.createPromptModule();
+    const opt = await prompt(pauseMessage);
+
+    return opt;
+  } catch (err) {
+    console.log(
+      '🐞 ~ It just happened an error when trying to do a pause: ',
+      err?.message || err
+    );
+  }
+};
+
+module.exports = { showInquirerMenu, doPause };
