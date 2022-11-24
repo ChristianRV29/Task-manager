@@ -1,20 +1,18 @@
 'use strict';
 
+const { showInquirerMenu, doPause } = require('./src/utils/inquirer');
 const colors = require('colors');
 
-const { showMenu, doPause } = require('./src/utils');
-
 const main = async () => {
-  let opt = '';
-  let leaving = false;
+  let hasLeft = false;
   do {
-    opt = await showMenu();
-    leaving = Boolean(opt === '7');
+    const { option } = await showInquirerMenu();
+    hasLeft = Boolean(option === 7);
 
-    if (!leaving) await doPause();
-  } while (!leaving);
+    if (!hasLeft) await doPause();
+  } while (!hasLeft);
 
-  console.log(colors.green('The program has finished successfully!'));
+  console.log('\nThe program has finished successfully!'.green);
 };
 
 main();
