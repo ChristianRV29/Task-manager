@@ -80,4 +80,25 @@ const doPause = async () => {
   }
 };
 
-module.exports = { showInquirerMenu, doPause };
+const readInput = async (message = '') => {
+  const questions = [
+    {
+      type: 'input',
+      name: 'description',
+      message,
+      validate(value) {
+        if (value.length === 0) {
+          return 'Please, enter some value';
+        }
+        return true;
+      },
+    },
+  ];
+
+  const prompt = inquirer.createPromptModule();
+  const description = await prompt(questions);
+
+  return description;
+};
+
+module.exports = { showInquirerMenu, doPause, readInput };
