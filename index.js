@@ -22,10 +22,11 @@ const main = async () => {
         tasks.createTask(desc);
         break;
       case 2:
-        console.log(tasks._list);
+        console.log(tasks.getListAsArray());
         break;
       default:
-        null;
+        console.log(`The option ${option} is no valid`.red);
+        break;
     }
 
     if (!hasLeft) await doPause();
