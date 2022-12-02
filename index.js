@@ -2,6 +2,7 @@
 require('colors');
 
 const Tasks = require('./src/models/tasks');
+const { storeData } = require('./src/utils');
 const {
   showInquirerMenu,
   doPause,
@@ -20,6 +21,9 @@ const main = async () => {
       case 1:
         const desc = await readInput("Task's description");
         tasks.createTask(desc);
+
+        storeData(JSON.stringify(tasks.getListAsArray()));
+
         break;
       case 2:
         console.log(tasks.getListAsArray());
