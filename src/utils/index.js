@@ -1,4 +1,5 @@
 const colors = require('colors');
+const fs = require('fs');
 
 const showMenu = () =>
   new Promise(resolve => {
@@ -40,7 +41,23 @@ const doPause = () =>
     });
   });
 
+const storeData = async data => {
+  try {
+    const path = './src/data/data_tasks.json';
+
+    await fs.writeFileSync(path, data);
+  } catch (err) {
+    console.log(
+      colors.red(
+        'It just happened an issue trying to save the task',
+        err?.message || err
+      )
+    );
+  }
+};
+
 module.exports = {
-  showMenu,
   doPause,
+  showMenu,
+  storeData,
 };
