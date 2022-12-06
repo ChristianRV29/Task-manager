@@ -1,6 +1,8 @@
 const colors = require('colors');
 const fs = require('fs');
 
+const path = './src/data/data_tasks.json';
+
 const showMenu = () =>
   new Promise(resolve => {
     console.clear();
@@ -43,8 +45,6 @@ const doPause = () =>
 
 const storeData = async data => {
   try {
-    const path = './src/data/data_tasks.json';
-
     await fs.writeFileSync(path, data);
   } catch (err) {
     console.log(
@@ -56,8 +56,18 @@ const storeData = async data => {
   }
 };
 
+const readData = () =>
+  new Promise(resolve => {
+    if (fs.existsSync(path)) {
+      const data = fs.readFileSync(path, { encoding: 'utf-8' });
+      resolve({ data, message: 'The data was gotten ✅' });
+      // else reject({ data: null, message: "Data doesn't exist yet 😬" });
+    }
+  });
+
 module.exports = {
   doPause,
+  readData,
   showMenu,
   storeData,
 };
