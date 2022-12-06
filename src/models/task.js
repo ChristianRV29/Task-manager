@@ -4,8 +4,8 @@ class Task {
   id = '';
   description = '';
   isCompleted = false;
-  createdIn = null;
-  completedIn = null;
+  createdAt = null;
+  completedAt = null;
 
   constructor(description) {
     this.id = uuidv4();
