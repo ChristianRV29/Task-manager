@@ -2,7 +2,7 @@
 require('colors');
 
 const Tasks = require('./src/models/tasks');
-const { storeData } = require('./src/utils');
+const { storeData, readData } = require('./src/utils');
 const {
   showInquirerMenu,
   doPause,
@@ -14,25 +14,25 @@ const main = async () => {
   let hasLeft = false;
   do {
     const { option } = await showInquirerMenu();
-
     hasLeft = Boolean(option === 7);
+
+    await tasks.getTasksFromDB();
 
     switch (option) {
       case 1:
         const desc = await readInput("Task's description");
         tasks.createTask(desc);
 
-        storeData(JSON.stringify(tasks.getListAsArray()));
+        storeData(JSON.stringify(tasks.getTaskData()));
 
         break;
       case 2:
-        console.log(tasks.getListAsArray());
+        tasks.listAllTasks();
         break;
       default:
-        console.log(`The option ${option} is no valid`.red);
+        console.log(`The option ${option} is not valid`.red);
         break;
     }
-
     if (!hasLeft) await doPause();
   } while (!hasLeft);
 

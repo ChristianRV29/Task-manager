@@ -37,7 +37,7 @@ const doPause = async () => {
   }
 };
 
-const readInput = async (message = '') => {
+const readInput = async () => {
   const prompt = inquirer.createPromptModule();
   const { description } = await prompt(inputQuestion);
 
