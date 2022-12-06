@@ -57,11 +57,12 @@ const storeData = async data => {
 };
 
 const readData = () =>
-  new Promise(resolve => {
+  new Promise((resolve, reject) => {
     if (fs.existsSync(path)) {
       const data = fs.readFileSync(path, { encoding: 'utf-8' });
       resolve({ data, message: 'The data was gotten ✅' });
-      // else reject({ data: null, message: "Data doesn't exist yet 😬" });
+    } else {
+      reject({ data: null, message: "The data doesn't exist yet!" });
     }
   });
 
