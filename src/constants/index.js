@@ -1,8 +1,7 @@
+require('colors');
+
 const optsMenu = [
   {
-    type: 'list',
-    name: 'option',
-    message: 'What do you want to do?\n',
     choices: [
       {
         value: 1,
@@ -33,21 +32,24 @@ const optsMenu = [
         name: `${'7'.green}. Exit`,
       },
     ],
+    message: 'What do you want to do?\n',
+    name: 'option',
+    type: 'list',
   },
 ];
 
 const pauseMessage = {
-  type: 'input',
-  name: 'enter',
-  message: `\nPress ${'ENTER'.green} to continue\n`,
   default: 'ENTER',
+  message: `\nPress ${'ENTER'.green} to continue\n`,
+  name: 'enter',
+  type: 'input',
 };
 
 const inputQuestion = [
   {
-    type: 'input',
+    message: 'Enter a description for the task',
     name: 'description',
-    message,
+    type: 'input',
     validate(value) {
       if (value.length === 0) {
         return 'Please, enter some value';
