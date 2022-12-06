@@ -11,19 +11,23 @@ const {
 
 const main = async () => {
   const tasks = new Tasks();
+
+  await tasks.getTasksFromDB();
+
   let hasLeft = false;
+
   do {
     const { option } = await showInquirerMenu();
-    hasLeft = Boolean(option === 7);
 
-    await tasks.getTasksFromDB();
+    console.log(option);
+    hasLeft = Boolean(option === 7);
 
     switch (option) {
       case 1:
         const desc = await readInput("Task's description");
         tasks.createTask(desc);
 
-        storeData(JSON.stringify(tasks.getTaskData()));
+        storeData(JSON.stringify(tasks.getTasksAsArray()));
 
         break;
       case 2:
