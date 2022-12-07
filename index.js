@@ -33,6 +33,11 @@ const main = async () => {
       case 2:
         tasks.listAllTasks();
         break;
+      case 3:
+        tasks.listTaskCompleted();
+        break;
+      case 4:
+        break;
       default:
         console.log(`The option ${option} is not valid`.red);
         break;

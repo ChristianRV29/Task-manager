@@ -33,13 +33,42 @@ class Tasks {
     return Object.keys(this._list).map(id => this._list[id]) || [];
   }
 
-  listAllTasks() {
-    Object.keys(this._list).forEach((id, index) => {
-      const { description, isCompleted } = this._list[id];
-      const message = `${index + 1}. ${description}\n`;
+  listTaskCompleted() {
+    const tasks = this.getTasksAsArray().filter(task => task.isCompleted) || [];
 
-      console.log(isCompleted ? colors.green(message) : colors.blue(message));
-    });
+    if (tasks.length > 0) {
+      tasks.forEach((task, index) => {
+        const { description } = task;
+        const message = `${index + 1}. ${description}`;
+        console.log(colors.green(message));
+      });
+    } else {
+      console.log(
+        colors.cyan(`You don't have tasks created yet. Let's create a new one!`)
+      );
+    }
+  }
+
+  listAllTasks() {
+    const taskIds = Object.keys(this._list);
+
+    if (taskIds.length > 0) {
+      taskIds.forEach((id, index) => {
+        const { description, isCompleted } = this._list[id];
+
+        const message = `${index + 1}. ${description}`;
+
+        console.log(
+          isCompleted
+            ? colors.green(`${message} :: Completed ✅`)
+            : colors.red(`${message} :: Not completed ❌`)
+        );
+      });
+    } else {
+      console.log(
+        colors.cyan(`You don't have tasks created yet. Let's create a new one!`)
+      );
+    }
   }
 }
 
