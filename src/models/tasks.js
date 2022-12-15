@@ -1,7 +1,7 @@
 const colors = require('colors');
 
 const Task = require('./task');
-const { readData } = require('../utils');
+const { readData, storeData } = require('../utils');
 class Tasks {
   _list = {};
 
@@ -12,6 +12,8 @@ class Tasks {
   createTask(description = '') {
     const task = new Task(description);
     this._list[task.id] = task;
+
+    storeData(JSON.stringify(this.getTasksAsArray()));
   }
 
   async getTasksFromDB() {
@@ -21,7 +23,7 @@ class Tasks {
         const tasks = JSON.parse(data);
 
         (tasks || []).forEach(task => {
-          this._list[task._id] = task;
+          this._list[task.id] = task;
         });
       }
     } catch (err) {
@@ -69,6 +71,21 @@ class Tasks {
         colors.cyan(`You don't have tasks created yet. Let's create a new one!`)
       );
     }
+  }
+
+  getTasksAsChoices() {
+    const tasks = this.getTasksAsArray().filter(task => !task.isCompleted);
+
+    return tasks.map((task, index) => {
+      return { value: task.id, name: `${index + 1}.${task.description}` };
+    });
+  }
+
+  completeTaskById(id) {
+    this._list[id].isCompleted = true;
+    this._list[id].completedAt = new Date();
+
+    storeData(JSON.stringify(this.getTasksAsArray()));
   }
 }
 
