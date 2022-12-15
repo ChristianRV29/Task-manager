@@ -19,7 +19,6 @@ const main = async () => {
   do {
     const { option } = await showInquirerMenu();
 
-    console.log(option);
     hasLeft = Boolean(option === 7);
 
     switch (option) {
