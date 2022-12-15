@@ -59,8 +59,15 @@ const inputQuestion = [
   },
 ];
 
+const tasksOptions = {
+  message: 'Choose a task for being completed',
+  name: 'taskId',
+  type: 'list',
+};
+
 module.exports = {
-  optsMenu,
   inputQuestion,
+  optsMenu,
   pauseMessage,
+  tasksOptions,
 };

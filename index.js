@@ -2,11 +2,11 @@
 require('colors');
 
 const Tasks = require('./src/models/tasks');
-const { storeData, readData } = require('./src/utils');
 const {
-  showInquirerMenu,
   doPause,
   readInput,
+  showInquirerMenu,
+  showTasksForComplete,
 } = require('./src/utils/inquirer');
 
 const main = async () => {
@@ -26,8 +26,6 @@ const main = async () => {
         const desc = await readInput("Task's description");
         tasks.createTask(desc);
 
-        storeData(JSON.stringify(tasks.getTasksAsArray()));
-
         break;
       case 2:
         tasks.listAllTasks();
@@ -36,6 +34,11 @@ const main = async () => {
         tasks.listTaskCompleted();
         break;
       case 4:
+        break;
+      case 5:
+        const taskId = await showTasksForComplete(tasks.getTasksAsChoices());
+        tasks.completeTaskById(taskId);
+
         break;
       default:
         console.log(`The option ${option} is not valid`.red);

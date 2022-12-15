@@ -1,7 +1,12 @@
 const inquirer = require('inquirer');
 const colors = require('colors');
 
-const { optsMenu, inputQuestion, pauseMessage } = require('./../constants');
+const {
+  optsMenu,
+  inputQuestion,
+  pauseMessage,
+  tasksOptions,
+} = require('./../constants');
 
 const showInquirerMenu = async () => {
   try {
@@ -44,4 +49,28 @@ const readInput = async () => {
   return description;
 };
 
-module.exports = { showInquirerMenu, doPause, readInput };
+const showTasksForComplete = async choices => {
+  try {
+    const propmt = inquirer.createPromptModule();
+    const { taskId } = await propmt([
+      {
+        ...tasksOptions,
+        choices,
+      },
+    ]);
+
+    return taskId;
+  } catch (err) {
+    console.log(
+      '🐞 ~ It just happened an error when trying to complete a task: ',
+      err?.message || err
+    );
+  }
+};
+
+module.exports = {
+  doPause,
+  readInput,
+  showInquirerMenu,
+  showTasksForComplete,
+};
