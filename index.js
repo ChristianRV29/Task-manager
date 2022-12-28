@@ -7,6 +7,7 @@ const {
   readInput,
   showInquirerMenu,
   showTasksForComplete,
+  showTasksForDelete,
 } = require('./src/utils/inquirer');
 
 const main = async () => {
@@ -34,11 +35,24 @@ const main = async () => {
         tasks.listTaskCompleted();
         break;
       case 4:
+        tasks.listTaskUncompleted();
         break;
       case 5:
-        const taskId = await showTasksForComplete(tasks.getTasksAsChoices());
-        tasks.completeTaskById(taskId);
+        const tasksForComplete = await showTasksForComplete(
+          tasks.getTasksAsChoices()
+        );
+        tasks.completeTasks(tasksForComplete);
+        break;
+      case 6:
+        const tasksToRemove = await showTasksForDelete(
+          tasks.getTaskForDeleting()
+        );
 
+        tasks.removeTasks(tasksToRemove);
+
+        break;
+      case 7:
+        console.log('\nThe program has finished successfully!\n'.green);
         break;
       default:
         console.log(`The option ${option} is not valid`.red);
@@ -46,8 +60,6 @@ const main = async () => {
     }
     if (!hasLeft) await doPause();
   } while (!hasLeft);
-
-  console.log('\nThe program has finished successfully!\n'.green);
 };
 
 main();
