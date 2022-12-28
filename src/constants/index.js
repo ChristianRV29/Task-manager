@@ -60,9 +60,15 @@ const inputQuestion = [
 ];
 
 const tasksOptions = {
-  message: 'Choose a task for being completed',
-  name: 'taskId',
-  type: 'list',
+  message: 'Choose one task or more for being completed',
+  name: 'tasksId',
+  type: 'checkbox',
+};
+
+const tasksOptionsRemoving = {
+  message: 'Choose one or more task for being deleted',
+  name: 'tasksId',
+  type: 'checkbox',
 };
 
 module.exports = {
@@ -70,4 +76,5 @@ module.exports = {
   optsMenu,
   pauseMessage,
   tasksOptions,
+  tasksOptionsRemoving,
 };

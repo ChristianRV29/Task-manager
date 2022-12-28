@@ -51,6 +51,23 @@ class Tasks {
     }
   }
 
+  listTaskUncompleted() {
+    const tasks =
+      this.getTasksAsArray().filter(task => !task.isCompleted) || [];
+
+    if (tasks.length > 0) {
+      tasks.forEach((task, index) => {
+        const { description } = task;
+        const message = `${index + 1}. ${description}`;
+        console.log(colors.red(message));
+      });
+    } else {
+      console.log(
+        colors.cyan(`You don't have tasks created yet. Let's create a new one!`)
+      );
+    }
+  }
+
   listAllTasks() {
     const taskIds = Object.keys(this._list);
 
@@ -68,7 +85,7 @@ class Tasks {
       });
     } else {
       console.log(
-        colors.cyan(`You don't have tasks created yet. Let's create a new one!`)
+        colors.cyan(`You don't have tasks pending now. Let's create a new one!`)
       );
     }
   }
@@ -81,9 +98,27 @@ class Tasks {
     });
   }
 
-  completeTaskById(id) {
-    this._list[id].isCompleted = true;
-    this._list[id].completedAt = new Date();
+  getTaskForDeleting() {
+    const tasks = this.getTasksAsArray();
+
+    return tasks.map((task, index) => {
+      return { value: task.id, name: `${index + 1}.${task.description}` };
+    });
+  }
+
+  completeTasks(tasks = []) {
+    tasks.forEach(id => {
+      this._list[id].isCompleted = true;
+      this._list[id].completedAt = new Date();
+    });
+
+    storeData(JSON.stringify(this.getTasksAsArray()));
+  }
+
+  removeTasks(tasks = []) {
+    tasks.forEach(id => {
+      delete this._list[id];
+    });
 
     storeData(JSON.stringify(this.getTasksAsArray()));
   }

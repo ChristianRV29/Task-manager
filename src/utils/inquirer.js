@@ -6,6 +6,7 @@ const {
   inputQuestion,
   pauseMessage,
   tasksOptions,
+  tasksOptionsRemoving,
 } = require('./../constants');
 
 const showInquirerMenu = async () => {
@@ -52,14 +53,14 @@ const readInput = async () => {
 const showTasksForComplete = async choices => {
   try {
     const propmt = inquirer.createPromptModule();
-    const { taskId } = await propmt([
+    const { tasksId } = await propmt([
       {
         ...tasksOptions,
         choices,
       },
     ]);
 
-    return taskId;
+    return tasksId;
   } catch (err) {
     console.log(
       '🐞 ~ It just happened an error when trying to complete a task: ',
@@ -68,9 +69,23 @@ const showTasksForComplete = async choices => {
   }
 };
 
+const showTasksForDelete = async choices => {
+  try {
+    const prompt = inquirer.createPromptModule();
+    const { tasksId } = await prompt([{ ...tasksOptionsRemoving, choices }]);
+
+    return tasksId;
+  } catch (err) {
+    console.log(
+      '🐞 ~ It just happened an error when trying to delete a task: ',
+      err?.message || err
+    );
+  }
+};
 module.exports = {
   doPause,
   readInput,
   showInquirerMenu,
   showTasksForComplete,
+  showTasksForDelete,
 };
