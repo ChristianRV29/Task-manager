@@ -45,6 +45,13 @@ const pauseMessage = {
   type: 'input',
 };
 
+const confirmMessage = {
+  default: 'y/N',
+  message: 'Are you sure?',
+  name: 'agreed',
+  type: 'confirm',
+};
+
 const inputQuestion = [
   {
     message: 'Enter a description for the task',
@@ -72,6 +79,7 @@ const tasksOptionsRemoving = {
 };
 
 module.exports = {
+  confirmMessage,
   inputQuestion,
   optsMenu,
   pauseMessage,
