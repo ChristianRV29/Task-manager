@@ -7,6 +7,7 @@ const {
   pauseMessage,
   tasksOptions,
   tasksOptionsRemoving,
+  confirmMessage,
 } = require('./../constants');
 
 const showInquirerMenu = async () => {
@@ -38,6 +39,20 @@ const doPause = async () => {
   } catch (err) {
     console.log(
       '🐞 ~ It just happened an error when trying to do a pause: ',
+      err?.message || err
+    );
+  }
+};
+
+const confirmStep = async () => {
+  try {
+    const prompt = inquirer.createPromptModule();
+    const { agreed } = await prompt(confirmMessage);
+
+    return agreed;
+  } catch (err) {
+    console.log(
+      '🐞 ~ It just happened an error when trying to confirm: ',
       err?.message || err
     );
   }
@@ -83,6 +98,7 @@ const showTasksForDelete = async choices => {
   }
 };
 module.exports = {
+  confirmStep,
   doPause,
   readInput,
   showInquirerMenu,
