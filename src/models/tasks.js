@@ -73,13 +73,13 @@ class Tasks {
 
     if (taskIds.length > 0) {
       taskIds.forEach((id, index) => {
-        const { description, isCompleted } = this._list[id];
+        const { description, isCompleted, completedAt } = this._list[id];
 
         const message = `${index + 1}. ${description}`;
 
         console.log(
           isCompleted
-            ? colors.green(`${message} :: Completed ✅`)
+            ? colors.green(`${message} :: Completed at: ${completedAt}`)
             : colors.red(`${message} :: Not completed ❌`)
         );
       });
