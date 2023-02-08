@@ -11,5 +11,5 @@ This is a simple terminal program that allows us handling task. If you decide to
 # Dependencies used
 
 - inquirer
-- fs
--
+- uuid  
+- colors
